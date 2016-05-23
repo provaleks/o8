@@ -28,7 +28,7 @@ msgstr "\nVennligst definere BIC / Swift-kode på bank for bank typen IBAN-konto
 #. module: base_iban
 #: model:res.partner.bank.type,format_layout:base_iban.bank_iban
 msgid "%(bank_name)s: IBAN %(acc_number)s - BIC %(bank_bic)s"
-msgstr "%(bank_navn)s: IBAN %(konto_nummer)s - BIC %(bank_bic)s"
+msgstr "%(bank_name)s: IBAN %(acc_number)s - BIC %(bank_bic)s"
 
 #. module: base_iban
 #: model:ir.model,name:base_iban.model_res_partner_bank
