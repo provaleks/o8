@@ -185,6 +185,7 @@ class WebRequest(object):
         self.disable_db = False
         self.uid = None
         self.endpoint = None
+        self.endpoint_arguments = None
         self.auth_method = None
         self._cr = None
 
@@ -267,7 +268,7 @@ class WebRequest(object):
         arguments = dict((k, v) for k, v in arguments.iteritems()
                          if not k.startswith("_ignored_"))
 
-        endpoint.arguments = arguments
+        self.endpoint_arguments = arguments
         self.endpoint = endpoint
         self.auth_method = auth
 
@@ -291,7 +292,8 @@ class WebRequest(object):
             _logger.error(msg, *params)
             raise werkzeug.exceptions.BadRequest(msg % params)
 
-        kwargs.update(self.endpoint.arguments)
+        if self.endpoint_arguments:
+            kwargs.update(self.endpoint_arguments)
 
         # Backward for 7.0
         if self.endpoint.first_arg_is_req:
@@ -304,6 +306,7 @@ class WebRequest(object):
             # case, the request cursor is unusable. Rollback transaction to create a new one.
             if self._cr:
                 self._cr.rollback()
+                self.env.clear()
             return self.endpoint(*a, **kw)
 
         if self.db:
@@ -378,8 +381,8 @@ def route(route=None, **kw):
 
                  * ``user``: The user must be authenticated and the current request
                    will perform using the rights of the user.
-                 * ``admin``: The user may not be authenticated and the current request
-                   will perform using the admin user.
+                 * ``public``: The user may or may not be authenticated. If she isn't,
+                   the current request will perform using the shared Public user.
                  * ``none``: The method is always active, even if there is no
                    database. Mainly used by the framework and authentication
                    modules. There request code will not have any facilities to access
@@ -1302,6 +1305,8 @@ class Root(object):
                     path_static = os.path.join(addons_path, module, 'static')
                     if os.path.isfile(manifest_path) and os.path.isdir(path_static):
                         manifest = ast.literal_eval(open(manifest_path).read())
+                        if not manifest.get('installable', True):
+                            continue
                         manifest['addons_path'] = addons_path
                         _logger.debug("Loading %s", module)
                         if 'openerp.addons' in sys.modules:

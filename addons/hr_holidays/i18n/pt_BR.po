@@ -6,13 +6,14 @@
 # Clemilton Clementino <clemylton@hotmail.com>, 2015
 # danimaribeiro <danimaribeiro@gmail.com>, 2015
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014
+# Luiz Carlos de Lima <luiz.carlos@akretion.com.br>, 2015
 # Rodrigo Macedo <rodrigomacedo@rmsolucoeseminformatica.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:07+0000\n"
-"PO-Revision-Date: 2015-08-04 17:14+0000\n"
+"PO-Revision-Date: 2015-10-11 23:09+0000\n"
 "Last-Translator: danimaribeiro <danimaribeiro@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/odoo/odoo-8/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -49,6 +50,11 @@ msgstr "<p>\nVocê pode atribuir as restantes folhas jurídicas para cada empreg
 #: field:hr.holidays.status,active:0
 msgid "Active"
 msgstr "Ativo"
+
+#. module: hr_holidays
+#: view:hr.holidays:hr_holidays.view_hr_holidays_filter
+msgid "Active Types"
+msgstr "Tipos de Ativos "
 
 #. module: hr_holidays
 #: view:hr.holidays:hr_holidays.allocation_company_new
@@ -257,6 +263,11 @@ msgid "Current Leave Type"
 msgstr "Tipo de Folga Atual"
 
 #. module: hr_holidays
+#: view:hr.holidays:hr_holidays.view_hr_holidays_filter
+msgid "Current Year Leaves"
+msgstr "Folhas do Ano em Curso"
+
+#. module: hr_holidays
 #: help:hr.holidays,message_last_post:0
 msgid "Date of the last message posted on the record."
 msgstr "Data da última mensagem para o registro."
@@ -392,7 +403,7 @@ msgid ""
 "If you select this check box, the system allows the employees to take more "
 "leaves than the available ones for this type and will not take them into "
 "account for the \"Remaining Legal Leaves\" defined on the employee form."
-msgstr ""
+msgstr "Se você selecionar esta opção, o sistema permite que os funcionários a tire mais folgas do que as disponíveis para este tipo e levá em conta para as \"Folgas Legais Remanescentes\", definidos no formulário do funcionário."
 
 #. module: hr_holidays
 #: field:hr.holidays,message_is_follower:0
@@ -858,7 +869,7 @@ msgstr "O número de folgas restantes não é suficiente para este tipo de licen
 msgid ""
 "The number of remaining leaves is not sufficient for this leave type.\n"
 "Please verify also the leaves waiting for validation."
-msgstr ""
+msgstr "O número de folgas restantes não é suficiente para este tipo de licença.\nPor favor, verifique também as folgas à espera de validação."
 
 #. module: hr_holidays
 #: code:addons/hr_holidays/hr_holidays.py:286
