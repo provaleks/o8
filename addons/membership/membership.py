@@ -230,33 +230,23 @@ class Partner(osv.osv):
                 continue
             s = 4
             if partner_data.member_lines:
-                #test to see if things changes when only looking againt last entry in table
-                #we should check againt the member_lines that has the highest value in write_date
-                mline2 = partner_data.member_lines[0]
-
                 for mline in partner_data.member_lines:
-                    if mline.write_date > mline2.write_date:
-                        mline2 = mline
-                
-                mline = mline2
-                #hack end
-                #for mline in partner_data.member_lines:
-                if mline.date_to >= today and mline.date_from <= today:
-                    if mline.account_invoice_line and mline.account_invoice_line.invoice_id:
-                        mstate = mline.account_invoice_line.invoice_id.state
-                        if mstate == 'paid':
-                            s = 0
-                            inv = mline.account_invoice_line.invoice_id
-                            for payment in inv.payment_ids:
-                                if payment.invoice.type == 'out_refund':
-                                    s = 2
-                            break
-                        elif mstate == 'open' and s!=0:
-                            s = 1
-                        elif mstate == 'cancel' and s!=0 and s!=1:
-                            s = 2
-                        elif  (mstate == 'draft' or mstate == 'proforma') and s!=0 and s!=1:
-                            s = 3
+                    if mline.date_to >= today and mline.date_from <= today:
+                        if mline.account_invoice_line and mline.account_invoice_line.invoice_id:
+                            mstate = mline.account_invoice_line.invoice_id.state
+                            if mstate == 'paid':
+                                s = 0
+                                inv = mline.account_invoice_line.invoice_id
+                                for payment in inv.payment_ids:
+                                    if payment.invoice.type == 'out_refund':
+                                        s = 2
+                                break
+                            elif mstate == 'open' and s!=0:
+                                s = 1
+                            elif mstate == 'cancel' and s!=0 and s!=1:
+                                s = 2
+                            elif  (mstate == 'draft' or mstate == 'proforma') and s!=0 and s!=1:
+                                s = 3
                 if s==4:
                     for mline in partner_data.member_lines:
                         if mline.date_from < today and mline.date_to < today and mline.date_from <= mline.date_to and mline.account_invoice_line and mline.account_invoice_line.invoice_id.state == 'paid':
